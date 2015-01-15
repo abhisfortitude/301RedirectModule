@@ -10,6 +10,7 @@ using Sitecore.Links;
 using Sitecore.Pipelines.HttpRequest;
 using Sitecore.Diagnostics;
 using Sitecore.Resources.Media;
+using Sitecore.Data.Managers;
 
 namespace SharedSource.RedirectModule
 {
@@ -108,7 +109,7 @@ namespace SharedSource.RedirectModule
             if (db == null)
                 return false;
             var redirectRoot = Sitecore.Configuration.Settings.GetSetting(Constants.Settings.RedirectRootNode);
-            var redirectFolderRoot = db.SelectSingleItem(redirectRoot);
+            var redirectFolderRoot = db.GetItem(redirectRoot, LanguageManager.DefaultLanguage);
             if (redirectFolderRoot == null)
                 return false;
             var allowRedirectsOnItemIDs = redirectFolderRoot[Constants.Fields.ItemProcessRedirects];
